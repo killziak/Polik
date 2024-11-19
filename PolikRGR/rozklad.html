@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розклад - Кіно у Рівному</title>
+    <link rel="stylesheet" href="/CSS/style.css"> <!-- Підключення CSS -->
+    <link rel="icon" type="image/svg+xml" href="/Фото/Cinema Film Movie Icon.svg">
+</head>
+<body>
+    <header>
+        <h1>Кіно у Рівному</h1>
+        <p>Розклад фільмів у кінотеатрах</p>
+    </header>
+    <nav>
+        <a href="index.html">Головна</a>
+        <a href="rozklad.html">Розклад</a>
+        <a href="Reclama.html">Реклама</a>
+        <a href="kontaktu.html">Контакти</a>
+    </nav>
+    <div class="container">
+        <div class="Zaraz">
+        <h2>Розклад показів</h2></div>
+        <table id="scheduleTable">
+            <thead>
+                <tr>
+                    <th data-label="Фільм">Фільм</th>
+                    <th data-label="Дата">Дата</th>
+                    <th data-label="Час">Час</th>
+                    <th data-label="Кінотеатр">Кінотеатр</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Фільм" class="movie-title">
+                        <img src="/Фото/гладіатор.jpg" alt="Гладіатор II">
+                        Гладіатор II
+                    </td>
+                    <td data-label="Дата">20 листопада 2024</td>
+                    <td data-label="Час">15:00, 18:00, 21:00</td>
+                    <td data-label="Кінотеатр">Україна</td>
+                </tr>
+                <tr>
+                    <td data-label="Фільм" class="movie-title">
+                        <img src="/Фото/веном.jpg" alt="Веном: Останній Танець">
+                        Веном: Останній Танець
+                    </td>
+                    <td data-label="Дата">21 листопада 2024</td>
+                    <td data-label="Час">14:00, 17:30, 20:30</td>
+                    <td data-label="Кінотеатр">Мультиплекс</td>
+                </tr>
+                <tr>
+                    <td data-label="Фільм" class="movie-title">
+                        <img src="/Фото/Дикий робот.jpg" alt="Дикий робот">
+                        Дикий робот
+                    </td>
+                    <td data-label="Дата">22 листопада 2024</td>
+                    <td data-label="Час">16:00, 19:00</td>
+                    <td data-label="Кінотеатр">Кінопалац</td>
+                </tr>
+                <tr>
+                    <td data-label="Фільм" class="movie-title">
+                        <img src="/Фото/Пригоди Панди в Африці.jpg" alt="Пригоди Панди в Африці">
+                        Пригоди Панди в Африці
+                    </td>
+                    <td data-label="Дата">23 листопада 2024</td>
+                    <td data-label="Час">12:00, 15:30, 18:30</td>
+                    <td data-label="Кінотеатр">Мультиплекс</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        &copy; 2024 Кіно у Рівному. Усі права захищено. Поліщук Максим ПП-27
+    </footer>
+
+    <script>
+        // Сортування таблиці
+        document.querySelectorAll("th").forEach((header, index) => {
+            header.addEventListener("click", () => {
+                const table = document.getElementById("scheduleTable");
+                const rows = Array.from(table.tBodies[0].rows);
+                const isAscending = header.classList.contains("sort-asc");
+
+                // Видалити попередній стан
+                document.querySelectorAll("th").forEach(th => th.classList.remove("sort-asc", "sort-desc"));
+
+                // Сортувати рядки
+                rows.sort((rowA, rowB) => {
+                    const cellA = rowA.cells[index].textContent.trim();
+                    const cellB = rowB.cells[index].textContent.trim();
+                    return isAscending
+                        ? cellA.localeCompare(cellB, "uk")
+                        : cellB.localeCompare(cellA, "uk");
+                });
+
+                // Застосувати сортування
+                rows.forEach(row => table.tBodies[0].appendChild(row));
+                header.classList.toggle("sort-asc", !isAscending);
+                header.classList.toggle("sort-desc", isAscending);
+            });
+        });
+    </script>
+</body>
+</html>
